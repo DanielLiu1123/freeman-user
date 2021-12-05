@@ -7,7 +7,8 @@
     <parent>
         <groupId>cn.liumouren</groupId>
         <artifactId>freeman-microservice-parent</artifactId>
-        <version>1.0.0</version>
+        <version>2.4.6.1</version>
+        <relativePath/>
     </parent>
 
     <artifactId>freeman-user</artifactId>
