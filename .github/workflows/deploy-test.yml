@@ -31,6 +31,8 @@ jobs:
       # 打包之后, 制作镜像, 上传 docker-registry
       - name: Upload Docker Registry
         run: |
-          docker build -t uer:1.0.0 .
           docker login 115.159.210.143 -u admin -p llw1123
-          docker push 115.159.210.143/freeman/uer:1.0.0
+          docker build --build-arg SERVER_DIR=freeman-user-server -t user:1.0.0 .
+          docker tag user:1.0.0 115.159.210.143/freeman/user:1.0.0
+          docker push 115.159.210.143/freeman/user:1.0.0
+          docker logout 115.159.210.143
