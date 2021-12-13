@@ -1,0 +1,20 @@
+FROM maven:3.8.1-jdk-8-openj9 AS builder
+WORKDIR /build
+COPY ./ /build/
+ARG SERVER_DIR
+ENV MAVEN_OPTS "-Dmaven.repo.local=/build/.m2"
+
+RUN mvn clean package -U --settings settings.xml -Dmaven.test.skip=true -Dmaven.source.skip=true
+RUN cp $SERVER_DIR/target/*.jar /
+
+FROM adoptopenjdk:8u292-b10-jdk-hotspot AS runner
+WORKDIR /runner
+ENV TZ Asia/Shanghai
+ENV SERVER_PORT 80
+EXPOSE 80
+
+COPY --from=builder /server.jar /runner/server.jar
+
+RUN chmod +x /runner/run_command.sh
+
+ENTRYPOINT ["/runner/run_command.sh"]

@@ -8,7 +8,6 @@
         <groupId>cn.liumouren</groupId>
         <artifactId>freeman-microservice-parent</artifactId>
         <version>2.4.6.1</version>
-        <relativePath/>
     </parent>
 
     <artifactId>freeman-user</artifactId>
@@ -29,7 +28,7 @@
             <dependency>
                 <groupId>cn.liumouren</groupId>
                 <artifactId>freeman-user-api</artifactId>
-                <version>${project.version}</version>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -2,9 +2,11 @@ package cn.liumouren.user.controller;
 
 import cn.liumouren.boot.common.anno.UserId;
 import cn.liumouren.user.api.UserApi;
+import cn.liumouren.user.dao.UserDao;
+import cn.liumouren.user.entity.User;
 import cn.liumouren.user.vo.UserVo;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UserController implements UserApi {
+
+    @Autowired
+    private UserDao userDao;
 
     @Override
     @GetMapping("/from_header")
@@ -31,6 +36,16 @@ public class UserController implements UserApi {
                 .setId(userId)
                 .setAge(21)
                 .setName("freeman");
+    }
+
+    @PostMapping("/")
+    public User save(@RequestBody User user) {
+        return userDao.save(user);
+    }
+
+    @GetMapping("/{id}")
+    public User get(@PathVariable String id) {
+        return userDao.findById(id).orElse(null);
     }
 
 }
